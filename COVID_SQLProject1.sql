@@ -59,7 +59,7 @@ GROUP by Location
 order by TotalDeathCount desc
 
 
--- Showing continents with the highest death count per population (correct way)
+-- Showing continents with the highest death count per population 
 -- You want Continent is NULL because the data has continents listed in the location column separately
 
 Select location, MAX(cast(Total_deaths as int)) as TotalDeathCount
@@ -71,7 +71,7 @@ order by TotalDeathCount desc
 
 
 -- Showing continents with the highest death count per population 
--- (Purpose for the drill down effect, which means when you click on a continent it shows all the countries within that continent)
+-- (Purpose for the drill down effect)
 
 Select continent, MAX(cast(Total_deaths as int)) as TotalDeathCount
 From PortfolioProject..CovidDeaths
@@ -104,8 +104,6 @@ from DeathPercentagebydate
 
 
 -- Looking at Total Population vs Vaccinations
--- CONVERT is like CAST
--- Used bigint because it can store larger numbers. int won't work anymore
 
 Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
 , SUM(CONVERT(bigint,vac.new_vaccinations)) OVER (Partition by dea.location order by dea.location, dea.date) as RollingPeopleVaccinated
